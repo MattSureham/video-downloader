@@ -1,0 +1,30 @@
+# 示例链接文件
+# 每行一个链接，# 开头的是注释
+
+# YouTube
+https://www.youtube.com/watch?v=dQw4w9WgXcQ
+https://youtu.be/9bZkp7q19f0
+
+# Bilibili
+https://www.bilibili.com/video/BV1xx411s7Z1
+https://www.bilibili.com/video/BV1ut4y1i7xE
+
+# 抖音
+https://v.douyin.com/jLd3/
+https://www.douyin.com/video/7123456789
+
+# 快手
+https://www.kuaishou.com/short-video/123456
+
+# 小红书
+https://www.xiaohongshu.com/explore/1234567890
+
+# Instagram Reels
+https://www.instagram.com/reel/CrXxXxXxX/
+
+# Twitter/X
+https://twitter.com/user/status/1234567890
+https://x.com/user/status/1234567890
+
+# TikTok
+https://www.tiktok.com/@username/video/1234567890

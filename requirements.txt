@@ -1,0 +1,24 @@
+# Core dependencies
+yt-dlp>=2023.9.2
+
+# Optional dependencies for enhanced features
+# Install with: pip install -r requirements.txt -r requirements-extra.txt
+
+# For better progress display
+tqdm>=4.66.1
+
+# For color output
+colorama>=0.4.6
+
+# For configuration file support
+PyYAML>=6.0.1
+
+# For interactive mode
+prompt_toolkit>=3.0.39
+
+# For cookies handling
+http.cookiejar>=0.1.0  # Built-in
+
+# Testing
+pytest>=7.4.3
+pytest-cov>=4.1.0
