@@ -16,8 +16,7 @@ PyYAML>=6.0.1
 # For interactive mode
 prompt_toolkit>=3.0.39
 
-# For cookies handling
-http.cookiejar>=0.1.0  # Built-in
+# For cookies handling (uses Python's built-in http.cookiejar, no install needed)
 
 # Testing
 pytest>=7.4.3
