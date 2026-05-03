@@ -9,6 +9,7 @@ import re
 import json
 from typing import List, Dict, Optional
 from urllib.parse import urlparse
+from .compat import safe_filename as _compat_safe_filename
 
 
 # 支持的平台和 URL 模式
@@ -92,22 +93,15 @@ def sanitize_filename(filename: str, replace_spaces: bool = True,
     Returns:
         清理后的文件名
     """
-    # 移除非法字符
-    illegal_chars = r'[<>:"/\\|?*\x00-\x1f]'
-    filename = re.sub(illegal_chars, '', filename)
-
-    # 替换空格
-    if replace_spaces:
-        filename = filename.replace(' ', '_')
-
-    # 移除多余的下划线
-    filename = re.sub(r'_+', '_', filename)
-
-    # 移除首尾下划线和点
-    filename = filename.strip('_.')
-    filename = filename[:max_length]
-
-    return filename
+    # Delegate to the cross-platform compatibility layer which adds:
+    # - Windows reserved name blocking (CON, PRN, AUX, etc.)
+    # - Trailing dot/space removal (illegal on Windows)
+    # - MAX_PATH awareness
+    return _compat_safe_filename(
+        filename,
+        replace_spaces=replace_spaces,
+        max_length=max_length,
+    )
 
 
 def format_filesize(size_bytes: int) -> str:

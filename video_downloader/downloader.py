@@ -8,6 +8,7 @@ import yt_dlp
 from typing import Optional, Dict, List, Callable
 from tqdm import tqdm
 import colorama
+from .compat import normalize_output_path, safe_filename
 
 
 class VideoDownloader:
@@ -49,6 +50,15 @@ class VideoDownloader:
             'quiet': False,
             'no_warnings': False,
         }
+
+        # Capture the actual output filename after post-processing
+        self._last_downloaded_file = None
+
+        def _capture_filename(d):
+            if d.get('status') == 'finished':
+                self._last_downloaded_file = d.get('filename')
+
+        options['progress_hooks'].append(_capture_filename)
 
         # 添加进度回调
         if self.progress_hook:
@@ -100,13 +110,22 @@ class VideoDownloader:
                 # 下载视频
                 ydl.download([url])
 
+                # Use the actual post-processing filename captured by the hook,
+                # not the pre-download guess (ffmpeg merging can change extension)
+                filepath = self._last_downloaded_file
+                if not filepath:
+                    # Fallback: use prepare_filename for the pre-download guess
+                    filepath = ydl.prepare_filename(info)
+                filepath = normalize_output_path(self.output_dir,
+                                                 os.path.basename(filepath))
+
                 return {
                     'success': True,
                     'title': info.get('title', 'Unknown'),
                     'url': url,
                     'format': format_option,
                     'audio_only': audio_only,
-                    'filepath': os.path.join(self.output_dir, f"{info.get('title', 'video')}.{info.get('ext', 'mp4')}")
+                    'filepath': filepath,
                 }
 
         except Exception as e:
@@ -245,10 +264,19 @@ class VideoDownloader:
             with yt_dlp.YoutubeDL(options) as ydl:
                 info = ydl.extract_info(url, download=False)
                 ydl.download([url])
+
+                # Capture actual filepath from the progress hook
+                filepath = self._last_downloaded_file
+                if not filepath:
+                    filepath = ydl.prepare_filename(info)
+                filepath = normalize_output_path(self.output_dir,
+                                                 os.path.basename(filepath))
+
                 return {
                     'success': True,
                     'title': info.get('title', 'Unknown'),
-                    'format_id': format_id
+                    'format_id': format_id,
+                    'filepath': filepath,
                 }
         except Exception as e:
             return {

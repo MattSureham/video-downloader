@@ -1,0 +1,46 @@
+# Python
+__pycache__/
+*.py[cod]
+*.class
+*.egg-info/
+dist/
+build/
+*.egg
+.eggs/
+
+# Virtual environments
+venv/
+.venv/
+env/
+.env/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Project-specific
+downloads/
+test_downloads/
+.logs/
+*.log
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Configuration
+config.json
+*.local.json
+
+# Cookies (security)
+cookies.txt
+*.cookies

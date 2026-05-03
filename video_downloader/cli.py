@@ -8,6 +8,7 @@ import argparse
 import sys
 import os
 from .downloader import VideoDownloader
+from .compat import init_terminal, safe_print as _safe_print
 
 
 def create_parser():
@@ -196,6 +197,9 @@ def read_urls_from_file(filepath: str) -> list:
 
 def main():
     """主函数"""
+    # Initialize cross-platform terminal support (colorama, UTF-8, VT100)
+    init_terminal()
+
     parser = create_parser()
     args = parser.parse_args()
 

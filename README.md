@@ -144,13 +144,15 @@ video-downloader/
 ├── README.md
 ├── requirements.txt
 ├── setup.py
+├── .gitignore
 ├── video_downloader/
 │   ├── __init__.py
 │   ├── __version__.py
 │   ├── downloader.py      # 核心下载逻辑
 │   ├── cli.py             # 命令行界面
 │   ├── batch.py           # 批量下载
-│   ├── platforms.py       # 平台支持
+│   ├── compat.py          # 跨平台兼容层 (Windows/macOS/Linux)
+│   ├── platforms.py       # 平台检测
 │   └── utils.py           # 工具函数
 ├── tests/
 │   └── __init__.py
